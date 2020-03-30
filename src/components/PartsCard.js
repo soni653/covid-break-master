@@ -1,9 +1,9 @@
 import React from 'react'
-
 export default function PartsCard(props) {
-     const { name, url, price } = props.part
 
-    return(
+    const { name, url, price } = props.part
+
+    return (
         <div>
             <div>
                 <h3> {name} </h3>

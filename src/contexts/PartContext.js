@@ -7,7 +7,7 @@ const PartContextProvider = (props) => {
     const [parts, setParts] = useState(data)
 
     return (
-        <PartContext.Provider value={{ data }}>
+        <PartContext.Provider value={{ parts }}>
             {props.children}
         </PartContext.Provider>
     )

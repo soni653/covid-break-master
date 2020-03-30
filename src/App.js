@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import './App.css';
 import data from './data'
@@ -8,6 +8,10 @@ import Part from './components/Part'
 import Header from './components/Header'
 import CartDetails from './components/CartDetails';
 import Styled from "styled-components";
+import PartContextProvider from "./components/context/PartContext";
+import CartContextProvider from "./components/context/CartContext";
+
+
 
 
 
@@ -23,51 +27,30 @@ height:100vh;
 
 
 function App() {
-  const [parts, setParts] = useState(data)
-  const [cart, setCart] = useState({items:[], total: 0})
-
-  const cartRemove = (id, name) => {
-      let deleteSingle = false;
-      setCart({
-        ...cart,
-        items: cart.items.filter(item => {
-          if(item.id == id && item.name == name) {
-            if(deleteSingle) {
-              return item
-            }
-            deleteSingle = true;
-          }else{
-            return item
-          }
-        })
-      })
-  }
   
-  const cartAdd = part => {
-    setCart(prevCart => ({
-        ...prevCart,
-        items:[...prevCart.items, part]
-    }))
-  }
 
   return (
     <Router>
-      <Header cart={cart} />
+      <PartContextProvider>
+      <CartContextProvider>
+      <Header />
     <AllContainer>
       
     <div className="App">
         <Route exact path='/'>
-          <StoreContainer parts={parts} />
+          <StoreContainer  />
         </Route>
         <Route exact path='/category/:id'>
-          <CategoryContainer parts={parts} cartRemove={cartRemove} cartAdd={cartAdd} cart={cart} />
+          <CategoryContainer  />
         </Route>
         <Route path='/cart'>
-          <CartDetails cart={cart} setCart={setCart} cartRemove={cartRemove}/>
+          <CartDetails />
         </Route>
     </div>
 
     </AllContainer>
+    </CartContextProvider>
+    </PartContextProvider>
     </Router>
   );
 }

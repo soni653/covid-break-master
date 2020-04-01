@@ -39,6 +39,7 @@ const {cart}=useContext(CartContext);
                 <StyledLink to='/category/4'>Graphics</StyledLink>
                 <StyledLink to='/category/5'>Cases</StyledLink>
                 <StyledLink to='/category/6'>Coolers</StyledLink>
+               
             
             <CartHeader cart={cart}/>
             </SuperNav>

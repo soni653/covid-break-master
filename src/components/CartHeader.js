@@ -29,7 +29,7 @@ export default function CartHeader(props) {
       <CartLink to="/cart">
         <CartDiv>
           <CartP>
-            <FontAwesomeIcon icon={faShoppingCart} />:{props.cart.items.length}{" "}
+            <FontAwesomeIcon icon={faShoppingCart} />:{cart.items.length}{" "}
           </CartP>
         </CartDiv>
       </CartLink>

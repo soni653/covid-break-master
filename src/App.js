@@ -1,4 +1,4 @@
-import React, { useContext} from 'react';
+import React, { useState,useContext,useReducer} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import './App.css';
 import data from './data'
@@ -10,7 +10,7 @@ import CartDetails from './components/CartDetails';
 import Styled from "styled-components";
 import PartContextProvider from "./components/context/PartContext";
 import CartContextProvider from "./components/context/CartContext";
-
+import  { cartReducer, intialState, ADD_CART, REMOVE_CART} from './reducers/cartReducer'
 
 
 
@@ -27,13 +27,23 @@ height:100vh;
 
 
 function App() {
+  const [parts, setParts] = useState(data)
+  const [state,dispatch] = useReducer(cartReducer, {items:[], total:0})
+  //const [cart,setCart] = useState({item:[],total :0})
+
+  const cartRemove =(id,name) => {
+    dispatch({type: REMOVE_CART,payload:{id,name}})
+  }
+   const cartAdd = part =>{
+     dispatch({type: ADD_CART,payload: {part}})
+   }
   
 
   return (
     <Router>
       <PartContextProvider>
       <CartContextProvider>
-      <Header />
+      <Header  />
     <AllContainer>
       
     <div className="App">

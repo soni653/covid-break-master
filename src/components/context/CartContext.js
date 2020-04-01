@@ -1,32 +1,44 @@
 
-import React, {createContext, useState} from "react"; 
+import React, {createContext, useState, useReducer} from "react"; 
+import {cartReducer,ADD_CART,REMOVE_CART} from '../../reducers/cartReducer'
 
 export const CartContext=createContext();
 
 const CartContextProvider =(props) => {
-    const[cart,setCart]=useState({items:[],total:0})
+    
+  const [cart,dispatch] = useReducer(cartReducer, {items:[], total:0})
+  //const [cart,setCart] = useState({item:[],total :0})
 
-    const cartRemove=(id,name)=>{
-        setCart({
-            ...cart,
-            items:cart.items.filter(item=>{
-                if(item.id && item.name===name){
-                }else{
-                        return item
-                    }
-                }
-            )
-        })
-    }
-    const cartAdd=part=>{
-        setCart(prevCart=>({
-            ...prevCart,
-            items:[...prevCart.items,part]
-        }))
-    }
+  const cartRemove =(id,name) => {
+    dispatch({type: REMOVE_CART,payload:{id,name}})
+  }
+   const cartAdd = part =>{
+     dispatch({type: ADD_CART,payload: part})
+   }
+  
+   // const[cart,setCart]=useState({items:[],total:0})
+
+    // const cartRemove=(id,name)=>{
+    //     setCart({
+    //         ...cart,
+    //         items:cart.items.filter(item=>{
+    //             if(item.id && item.name===name){
+    //             }else{
+    //                     return item
+    //                 }
+    //             }
+    //         )
+    //     })
+    // }
+    // const cartAdd=part=>{
+    //     setCart(prevCart=>({
+    //         ...prevCart,
+    //         items:[...prevCart.items,part]
+    //     }))
+    // }
 
     return(
-        <CartContext.Provider value = {{ cart,setCart,cartRemove,cartAdd}}>
+        <CartContext.Provider value = {{ cart,cartRemove,cartAdd}}>
         {props.children}
         </CartContext.Provider>
     )
